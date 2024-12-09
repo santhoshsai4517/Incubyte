@@ -44,7 +44,7 @@ When(`User enters all valid details and clicks on create account`, () => {
 });
 
 Then(
-	`Page is redirected to account page and {string} is displayed`,
+	`Page is redirected to account page and {string} is displayed and User can login using new details`,
 	(message) => {
 		cy.url().should(
 			'eq',
@@ -54,6 +54,22 @@ Then(
 		accountPage.getContactInfo().should('contain.text', email);
 		accountPage
 			.getContactInfo()
+			.should('contain.text', firstName + ' ' + lastName);
+		accountPage.getDropDown().click();
+		cy.wait(1000);
+		accountPage.getSignout().click();
+		cy.wait(6000);
+		cy.url().should('eq', Cypress.config().baseUrl);
+
+		homePage.getSignInLink().click();
+		cy.wait(2000);
+
+		homePage.getEmailInput().type(email);
+		homePage.getPasswordInput().type(password);
+		homePage.getSubmitButton().click();
+
+		homePage
+			.getName()
 			.should('contain.text', firstName + ' ' + lastName);
 	}
 );

@@ -5,11 +5,10 @@ Scenario: Navigating to sign up page
   When User clicks on create an account link
   Then User is redirected to sign up page and "Create New Customer Account" is displayed
 
-
 Scenario: Registration with all valid details
   Given User visits account creation page
   When User enters all valid details and clicks on create account
-  Then Page is redirected to account page and "Thank you for registering with Main Website Store." is displayed
+  Then Page is redirected to account page and "Thank you for registering with Main Website Store." is displayed and User can login using new details
 
 Scenario: Registration with no details
   Given User visits account creation page
